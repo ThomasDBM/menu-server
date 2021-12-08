@@ -30,3 +30,4 @@ curl -H "Content-Type: application/json" --data-raw '{"name": "Menu spécial du 
 # Lire les menus enregistrés
 curl localhost:8080/menus
 ```
+bleueuubleueubluururrrreueue
