@@ -8,4 +8,4 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
       - run: ls -l # Liste les fichier du répertoire courant
-      - run: cat README.md # Affiche le contenu du fichier `README.md` à la base du dépôt
+      - run: cat README.md | cowsay # Affiche le contenu du fichier `README.md` à la base du dépôt
