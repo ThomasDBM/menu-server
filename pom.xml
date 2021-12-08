@@ -36,6 +36,9 @@
 	</dependencies>
 
   <build>
+    <defaultGoal>install</defaultGoal>
+    <directory>${basedir}/target</directory>
+    <finalName>menu-server</finalName>
     <plugins>
         <plugin>
             <groupId>org.springframework.boot</groupId>
