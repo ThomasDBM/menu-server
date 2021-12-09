@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import com.cicdlectures.menuserver.dto.MenuDto;
 import com.cicdlectures.menuserver.service.CreateMenuService;
 import com.cicdlectures.menuserver.service.ListMenuService;
+import com.cicdlectures.menuserver.service.MenuRepository;
 
 @RestController
 public class MenuController {
