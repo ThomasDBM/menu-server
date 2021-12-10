@@ -1,11 +1,23 @@
 package com.cicdlectures.menuserver.controller;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.net.URL;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+
+import com.cicdlectures.menuserver.dto.DishDto;
 import com.cicdlectures.menuserver.dto.MenuDto;
+import com.cicdlectures.menuserver.model.Dish;
+import com.cicdlectures.menuserver.model.Menu;
 import com.cicdlectures.menuserver.repository.MenuRepository;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -42,6 +54,31 @@ public class MenuControllerIT {
   @Test
   @DisplayName("lists all known menus")
   public void listExitingMenus() throws Exception {
+
+    MenuDto expectedMenu =  new MenuDto(
+      Long.valueOf(1),
+      "Menu spécial du chef",
+      new HashSet<>(
+          Arrays.asList(
+          new DishDto(Long.valueOf(1), "Bananes aux fraises"),
+          new DishDto(Long.valueOf(2), "Bananes flambées")
+          )
+      )
+    );
+
+    Menu existingMenu = new Menu(
+        null,
+        "Menu spécial du chef",
+        new HashSet<>(
+            Arrays.asList(
+            new Dish(null, "Bananes aux fraises", null),
+            new Dish(null, "Bananes flambées", null)
+            )
+        )
+    );
+
+    existingMenu=menuRepository.save(existingMenu);
+
     // Effectue une requête GET /menus
     ResponseEntity<MenuDto[]> response = this.template.getForEntity(getMenusURL().toString(), MenuDto[].class);
 
@@ -51,9 +88,8 @@ public class MenuControllerIT {
     //Récupère le code de reponse http
     HttpStatus Code = response.getStatusCode();
 
-
-
     // On compare la valeur obtenue avec la valeur attendue.
     assertEquals(Code, HttpStatus.OK);
+    assertEquals(gotMenus[0], expectedMenu);
   }
 }
